@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    namespace 'io.larapush.sdk'
-    compileSdk rootProject.ext.compileSdkVersion
+    namespace 'com.larapush.sdk'
+    compileSdk 35
 
     defaultConfig {
-        minSdk rootProject.ext.minSdkVersion
-        targetSdk rootProject.ext.targetSdkVersion
-        
+        minSdk 21
+        targetSdk 34
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -24,40 +24,22 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+         sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main {
-            manifest.srcFile 'src/main/AndroidManifest.xml'
-            java.srcDirs = ['src/main/kotlin']
-            res.srcDirs = ['src/main/res']
-        }
+        jvmTarget = '17'
     }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    
-    // Firebase
-    implementation platform('com.google.firebase:firebase-bom:32.7.0')
-    implementation 'com.google.firebase:firebase-messaging-ktx'
-    
-    // Networking & JSON
+    implementation 'com.google.firebase:firebase-messaging:23.4.0'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-    
-    // Image Loading
     implementation 'com.github.bumptech.glide:glide:4.16.0'
-    
-    // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3'
 }
@@ -67,10 +49,10 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                
-                groupId = 'com.github.dhirajabrandzzy'
-                artifactId = 'larapush'
-                version = 'V3.0'
+
+                groupId = 'com.larapush'
+                artifactId = 'sdk'
+                version = '1.0.0'
             }
         }
     }
