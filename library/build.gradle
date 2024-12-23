@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.larapush.sdk'
+    namespace 'io.larapush.sdk'
     compileSdk 35
 
     defaultConfig {
@@ -31,6 +31,12 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+       publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -46,7 +52,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.larapush'
+                groupId = 'io.larapush'
                 artifactId = 'sdk'
                 version = '1.0.0'
             }
