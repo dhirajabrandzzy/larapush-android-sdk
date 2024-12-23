@@ -191,8 +191,10 @@ class LaraPushNotification : FirebaseMessagingService() {
                         .get()
                     builder.setLargeIcon(bitmap)
                 } catch (e: Exception) {
-                    if (config.debug) {
-                        Log.e("LaraPush", "Error loading notification icon", e)
+                    run {
+                        if (config.debug) {
+                            Log.e("LaraPush", "Error loading notification icon", e)
+                        }
                     }
                 }
             }
@@ -207,8 +209,10 @@ class LaraPushNotification : FirebaseMessagingService() {
                         .get()
                     builder.setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
                 } catch (e: Exception) {
-                    if (config.debug) {
-                        Log.e("LaraPush", "Error loading notification image", e)
+                    run {
+                        if (config.debug) {
+                            Log.e("LaraPush", "Error loading notification icon", e)
+                        }
                     }
                 }
             }
