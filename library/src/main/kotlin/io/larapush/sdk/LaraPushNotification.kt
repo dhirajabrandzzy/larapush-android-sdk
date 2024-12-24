@@ -60,6 +60,7 @@ class LaraPushNotification : FirebaseMessagingService() {
         val client = OkHttpClient()
         
         val tags = getDeveloperTags()
+        Log.d("LaraPush", "Sending token to server with tags: $tags")  // Add this line
         
         val json = JSONObject().apply {
             put("domain", config.applicationId)
@@ -67,27 +68,31 @@ class LaraPushNotification : FirebaseMessagingService() {
             put("url", config.panelUrl)
             put("tags", JSONArray(tags))
         }
-
+    
+        Log.d("LaraPush", "Sending request to server: ${json.toString()}")  // Add this line
+    
         val requestBody = RequestBody.create(
             "application/json".toMediaType(),
             json.toString()
         )
-
+    
         val request = Request.Builder()
             .url("${config.panelUrl}api/token")
             .post(requestBody)
             .build()
-
+    
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                if (config.debug) {
-                    Log.e("LaraPush", "Failed to send token", e)
-                }
+                Log.e("LaraPush", "Failed to send token", e)
             }
-
+    
             override fun onResponse(call: Call, response: Response) {
-                if (config.debug) {
+                val responseBody = response.body?.string()
+                Log.d("LaraPush", "Server response: $responseBody")  // Add this line
+                if (response.isSuccessful) {
                     Log.d("LaraPush", "Token sent successfully")
+                } else {
+                    Log.e("LaraPush", "Server returned error: ${response.code}")
                 }
             }
         })
