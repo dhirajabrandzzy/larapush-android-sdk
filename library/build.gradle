@@ -1,19 +1,28 @@
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'maven-publish'
+buildscript {
+    ext.kotlin_version = '1.9.22'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
+
 android {
-    namespace 'io.larapush.sdk'
-    compileSdk 35
+    namespace "io.larapush.sdk"
+    compileSdk 34
 
     defaultConfig {
         minSdk 21
         targetSdk 34
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        versionCode 1
+        versionName "1.0.0"
     }
 
     buildTypes {
@@ -23,28 +32,30 @@ android {
         }
     }
 
-    compileOptions {
-         sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
+}
 
-    kotlinOptions {
-        jvmTarget = '17'
-    }
-       publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
+repositories {
+    google()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    // Add this for React Native
+    maven {
+        url "$rootDir/../node_modules/react-native/android"
     }
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-messaging:23.4.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
-    implementation "com.facebook.react:react-native:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    
+    // React Native dependency
+    compileOnly 'com.facebook.react:react-native:+'
+    
+    // Firebase Messaging
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+    implementation 'com.google.firebase:firebase-messaging'
 }
 
 afterEvaluate {
