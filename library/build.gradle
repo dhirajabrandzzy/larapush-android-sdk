@@ -52,9 +52,9 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'io.larapush'
-                artifactId = 'sdk'
-                version = '1.0.0'
+                groupId = 'com.github.dhirajabrandzzy'
+                artifactId = 'larapush-android-sdk'
+                version = 'V12.0'
             }
         }
     }

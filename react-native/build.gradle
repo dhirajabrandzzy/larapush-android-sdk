@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'io.larapush.react'
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         minSdk 21
-        targetSdk 33
+        targetSdk 34
     }
 
     buildTypes {
@@ -18,8 +18,14 @@ android {
     }
 }
 
+repositories {
+    google()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
     implementation project(':library')
-    implementation "com.facebook.react:react-native:+"
+    compileOnly "com.facebook.react:react-native:0.72.6"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

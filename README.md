@@ -1,14 +1,10 @@
-# android-example
+# LaraPush Android SDK
 
-[![Release](https://jitpack.io/v/jitpack/android-example.svg)](https://jitpack.io/#jitpack/android-example)
+[![Release](https://jitpack.io/v/dhirajabrandzzy/larapush-android-sdk.svg)](https://jitpack.io/#dhirajabrandzzy/larapush-android-sdk)
 
-Example Android library project that works with jitpack.io.
+LaraPush Android SDK for push notifications with support for React Native and Flutter.
 
-See this [Tutorial](https://medium.com/@ome450901/publish-an-android-library-by-jitpack-a0342684cbd0) on how to publish an Android Library with JitPack.
-
-For more details check out the [documentation](https://github.com/jitpack/jitpack.io/blob/master/ANDROID.md)
-
-https://jitpack.io/#jitpack/android-example
+## Installation
 
 Add it to your build.gradle with:
 ```gradle
@@ -18,38 +14,83 @@ allprojects {
     }
 }
 ```
+
 and:
 
 ```gradle
 dependencies {
-    compile 'com.github.jitpack:android-example:{latest version}'
+    implementation 'com.github.dhirajabrandzzy:larapush-android-sdk:V12.0'
 }
 ```
 
-## Multiple build variants
+## React Native Support
 
-If your library uses multiple flavours then see this example:
-https://github.com/jitpack-io/android-jitpack-library-example
+The React Native module is available separately. To use it:
 
-## Adding the maven plugin
+1. Copy the `react-native` folder to your React Native project
+2. Add the module to your `settings.gradle`:
+   ```gradle
+   include ':react-native'
+   ```
+3. Add the dependency to your app's `build.gradle`:
+   ```gradle
+   dependencies {
+       implementation project(':react-native')
+   }
+   ```
 
-To enable installing into local maven repository and JitPack you need to add the [android-maven](https://github.com/dcendents/android-maven-gradle-plugin) plugin:
+## Flutter Support
 
-1. Add `classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'` to root build.gradle under `buildscript { dependencies {`
-2. Add `com.github.dcendents.android-maven` to the library/build.gradle
+Flutter integration is available in the `flutter/` directory. See the Flutter documentation for setup instructions.
 
-After these changes you should be able to run:
+## Usage
 
-    ./gradlew install
-    
-from the root of your project. If install works and you have added a GitHub release it should work on jitpack.io
+### Android (Kotlin/Java)
 
-## Adding a sample app 
-
-If you add a sample app to the same repo then your app needs to have a dependency on the library. To do this in your app/build.gradle add:
-
-```gradle
-    dependencies {
-        compile project(':library')
-    }
+```kotlin
+val config = LaraPushConfig(
+    panelUrl = "your-panel-url",
+    applicationId = "your-app-id",
+    debug = true
+)
+LaraPush.init(context, config)
 ```
+
+### React Native
+
+```javascript
+import { LaraPushModule } from 'react-native';
+
+LaraPushModule.initialize('your-panel-url', 'your-app-id', true);
+```
+
+### Flutter
+
+```dart
+import 'package:larapush/larapush.dart';
+
+await LaraPush.initialize(
+  panelUrl: 'your-panel-url',
+  applicationId: 'your-app-id',
+  debug: true,
+);
+```
+
+## Building the SDK
+
+### Main Library Build
+```bash
+./gradlew clean assemble
+```
+
+### React Native Module Build (separate)
+```bash
+./gradlew -c settings-react-native.gradle clean assemble
+```
+
+## JitPack Integration
+
+This library is automatically built and published via JitPack when you push tags to GitHub.
+
+- Build status: https://jitpack.io/#dhirajabrandzzy/larapush-android-sdk
+- Latest version: V12.0

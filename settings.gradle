@@ -1,3 +1,4 @@
 rootProject.name = "larapush"
 include ':library'
-include ':react-native'
+// React Native module is excluded from main build due to dependency issues
+// include ':react-native'
