@@ -54,7 +54,7 @@ afterEvaluate {
 
                 groupId = 'com.github.dhirajabrandzzy'
                 artifactId = 'larapush-android-sdk'
-                version = 'V12.0'
+                version = 'V13.0'
             }
         }
     }
