@@ -55,5 +55,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     
     // LaraPush SDK dependency
-    implementation 'com.github.dhirajabrandzzy:larapush-android-sdk:V10'
+    implementation 'com.github.dhirajabrandzzy:larapush-android-sdk:V12.1'
 }
